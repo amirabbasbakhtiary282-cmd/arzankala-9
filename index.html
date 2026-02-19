@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ارزان کالا | فروشگاه آنلاین</title>
+    <style>
+        /* ===== فونت و رنگ‌بندی ===== */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,'Segoe UI',Roboto,'Helvetica Neue',sans-serif}
+        body{background-color:#0a0c0b;color:#fff;overflow-x:hidden}
+        :root{
+            --primary:#00c853;
+            --primary-dark:#008040;
+            --bg-dark:#0a0c0b;
+            --bg-card:#1a1e1d;
+            --bg-nav:#050606;
+            --border:#2a2f2e;
+            --text-light:#e0e0e0;
+            --text-muted:#a0a0a0;
+            --danger:#ff5252;
+            --warning:#ffc107;
+            --shadow:0 10px 30px rgba(0,200,83,0.2);
+        }
+        /* ===== نوار بالایی (منوی اصلی) ===== */
+        .navbar{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            background:var(--bg-nav);
+            border-bottom:3px solid var(--primary-dark);
+            padding:0.8rem 2rem;
+            z-index:10000;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            box-shadow:0 2px 20px rgba(0,200,83,0.2);
+        }
+        .navbar-brand{
+            color:var(--primary);
+            font-size:1.8rem;
+            font-weight:800;
+            text-decoration:none;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            letter-spacing:1px;
+        }
+        /* ===== لیست منو (دسکتاپ) ===== */
+        .nav-menu{
+            display:flex;
+            align-items:center;
+            gap:1rem;
+            list-style:none;
+            margin:0;
+            padding:0;
+        }
+        .nav-item{
+            position:relative;
+        }
+        .nav-link{
+            color:var(--text-light);
+            text-decoration:none;
+            padding:0.6rem 1.2rem;
+            border-radius:30px;
+            font-weight:500;
+            transition:all 0.3s;
+            display:flex;
+            align-items:center;
+            gap:8px;
+            white-space:nowrap;
+        }
+        .nav-link i{
+            color:var(--primary);
+            font-size:1.1rem;
+        }
+        .nav-link:hover{
+            background:rgba(0,200,83,0.15);
+            color:var(--primary);
+            transform:translateY(-2px);
+        }
+        /* ===== منوی کشویی ===== */
+        .dropdown-menu{
+            position:absolute;
+            top:100%;
+            right:0;
+            background:var(--bg-card);
+            border:1px solid var(--primary);
+            border-radius:20px;
+            padding:0.8rem;
+            min-width:220px;
+            display:none;
+            z-index:1000;
+            box-shadow:var(--shadow);
+            backdrop-filter:blur(10px);
+        }
+        .dropdown:hover .dropdown-menu{
+            display:block;
+            animation:fadeIn 0.3s;
+        }
+        @keyframes fadeIn{
+            from{opacity:0;transform:translateY(-10px);}
+            to{opacity:1;transform:translateY(0);}
+        }
+        .dropdown-item{
+            color:var(--text-light);
+            padding:0.8rem 1rem;
+            text-decoration:none;
+            display:block;
+            border-radius:12px;
+            transition:0.2s;
+        }
+        .dropdown-item:hover{
+            background:rgba(0,200,83,0.15);
+            color:var(--primary);
+            padding-right:1.5rem;
+        }
+        /* ===== بخش ابزارها (جستجو، سبد خرید، کاربر) ===== */
+        .nav-tools{
+            display:flex;
+            align-items:center;
+            gap:1rem;
+        }
+        .search-box{
+            position:relative;
+            width:250px;
+        }
+        .search-box input{
+            width:100%;
+            background:var(--bg-card);
+            border:1px solid var(--border);
+            border-radius:40px;
+            padding:0.7rem 1rem 0.7rem 3rem;
+            color:#fff;
+            outline:none;
+            transition:0.3s;
+        }
+        .search-box input:focus{
+            border-color:var(--primary);
+            box-shadow:0 0 0 3px rgba(0,200,83,0.2);
+        }
+        .search-box button{
+            position:absolute;
+            left:12px;
+            top:50%;
+            transform:translateY(-50%);
+            background:none;
+            border:none;
+            color:var(--primary);
+            font-size:1.2rem;
+            cursor:pointer;
+        }
+        .cart-btn{
+            background:var(--bg-card);
+            border:none;
+            border-radius:50%;
+            width:48px;
+            height:48px;
+            color:var(--primary);
+            font-size:1.3rem;
+            cursor:pointer;
+            transition:0.3s;
+            position:relative;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .cart-btn:hover{
+            background:#232827;
+            transform:scale(1.1);
+        }
+        .badge{
+            position:absolute;
+            top:-5px;
+            right:-5px;
+            background:var(--primary);
+            color:#fff;
+            border-radius:50px;
+            padding:3px 8px;
+            font-size:0.7rem;
+            font-weight:bold;
+            min-width:22px;
+            text-align:center;
+        }
+        .login-btn{
+            background:var(--bg-card);
+            border:2px solid var(--primary);
+            border-radius:50%;
+            width:48px;
+            height:48px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:var(--primary);
+            text-decoration:none;
+            transition:0.3s;
+            font-size:1.2rem;
+        }
+        .login-btn:hover{
+            background:var(--primary);
+            color:#fff;
+            transform:scale(1.1);
+        }
+        /* ===== دکمه همبرگر (موبایل) ===== */
+        .hamburger{
+            display:none;
+            background:var(--bg-card);
+            border:none;
+            border-radius:50%;
+            width:48px;
+            height:48px;
+            color:var(--primary);
+            font-size:1.5rem;
+            cursor:pointer;
+            transition:0.3s;
+            align-items:center;
+            justify-content:center;
+        }
+        .hamburger:hover{
+            background:#232827;
+        }
+        /* ===== منوی موبایل (تمام صفحه) ===== */
+        .mobile-menu{
+            position:fixed;
+            top:70px;
+            left:0;
+            width:100%;
+            height:calc(100vh - 70px);
+            background:var(--bg-nav);
+            z-index:9999;
+            padding:2rem;
+            display:flex;
+            flex-direction:column;
+            gap:1.5rem;
+            transform:translateX(100%);
+            transition:transform 0.4s ease;
+            overflow-y:auto;
+            border-top:2px solid var(--primary);
+        }
+        .mobile-menu.active{
+            transform:translateX(0);
+        }
+        .mobile-menu .nav-link{
+            font-size:1.3rem;
+            padding:1rem;
+            border-bottom:1px solid var(--border);
+            width:100%;
+        }
+        .mobile-menu .dropdown-menu{
+            position:static;
+            display:block;
+            background:transparent;
+            border:none;
+            box-shadow:none;
+            padding:0.5rem 2rem;
+        }
+        .mobile-menu .dropdown-item{
+            font-size:1.1rem;
+            padding:0.8rem 1rem;
+        }
+        /* ===== سبد خرید کشویی ===== */
+        .cart-wrapper{
+            position:fixed;
+            top:80px;
+            left:20px;
+            width:380px;
+            z-index:9998;
+            visibility:hidden;
+            opacity:0;
+            transform:translateY(-20px);
+            transition:0.3s;
+            pointer-events:none;
+        }
+        .cart-wrapper.active{
+            visibility:visible;
+            opacity:1;
+            transform:translateY(0);
+            pointer-events:auto;
+        }
+        .cart{
+            background:var(--bg-card);
+            border:2px solid var(--primary);
+            border-radius:24px;
+            box-shadow:var(--shadow);
+            overflow:hidden;
+        }
+        .cart-header{
+            background:linear-gradient(145deg,var(--primary),var(--primary-dark));
+            padding:1.2rem;
+        }
+        .cart-body{
+            padding:1.2rem;
+            max-height:400px;
+            overflow-y:auto;
+        }
+        .cart-item{
+            display:flex;
+            gap:12px;
+            background:#0d0f0e;
+            border-radius:16px;
+            padding:12px;
+            margin-bottom:12px;
+            align-items:center;
+        }
+        .cart-item img{
+            width:60px;
+            height:60px;
+            object-fit:contain;
+            background:#0a0c0b;
+            border-radius:12px;
+            padding:5px;
+        }
+        .cart-item-info{
+            flex:1;
+        }
+        .cart-item-name{
+            font-weight:700;
+            margin-bottom:4px;
+        }
+        .cart-item-price{
+            color:var(--primary);
+            font-weight:600;
+        }
+        .cart-qty{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            margin-top:8px;
+        }
+        .qty-btn{
+            background:transparent;
+            border:1px solid var(--primary);
+            color:var(--primary);
+            width:28px;
+            height:28px;
+            border-radius:6px;
+            cursor:pointer;
+            font-size:1.2rem;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .remove-btn{
+            background:var(--danger);
+            border:none;
+            color:#fff;
+            width:28px;
+            height:28px;
+            border-radius:6px;
+            cursor:pointer;
+        }
+        .cart-summary{
+            border-top:2px solid var(--border);
+            padding-top:1rem;
+            margin-top:0.5rem;
+        }
+        .total-price{
+            color:var(--primary);
+            font-size:1.6rem;
+            font-weight:800;
+        }
+        .cart-actions{
+            display:flex;
+            gap:10px;
+            margin-top:1rem;
+        }
+        .btn-clear{
+            background:var(--danger);
+            color:#fff;
+            border:none;
+            border-radius:12px;
+            padding:0.8rem;
+            flex:1;
+            font-weight:600;
+            cursor:pointer;
+        }
+        .btn-pay{
+            background:transparent;
+            border:2px solid var(--warning);
+            color:var(--warning);
+            border-radius:12px;
+            padding:0.8rem;
+            flex:1;
+            text-align:center;
+            text-decoration:none;
+            font-weight:600;
+        }
+        /* ===== محتوای اصلی ===== */
+        .main-content{
+            margin-top:80px;
+            padding:2rem;
+        }
+        .hero{
+            min-height:90vh;
+            background:linear-gradient(135deg,rgba(0,0,0,0.95),rgba(0,0,0,0.8)),url('../img/arzankala.png') center/cover;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            border-radius:40px;
+            margin-bottom:3rem;
+        }
+        .hero h1{
+            font-size:clamp(2.5rem,8vw,5rem);
+            margin-bottom:1rem;
+        }
+        .highlight{
+            color:var(--primary);
+            text-shadow:0 0 20px rgba(0,200,83,0.5);
+        }
+        .section{
+            margin-bottom:4rem;
+        }
+        .container{
+            max-width:1400px;
+            margin:0 auto;
+            padding:0 1rem;
+        }
+        .row{
+            display:flex;
+            flex-wrap:wrap;
+            margin:0 -15px;
+        }
+        .col{
+            flex:1 1 250px;
+            padding:15px;
+        }
+        .product-card{
+            background:var(--bg-card);
+            border:1px solid var(--border);
+            border-radius:24px;
+            padding:1.5rem;
+            transition:0.4s;
+            height:100%;
+            display:flex;
+            flex-direction:column;
+        }
+        .product-card:hover{
+            border-color:var(--primary);
+            transform:translateY(-10px);
+            box-shadow:var(--shadow);
+        }
+        .product-img{
+            width:100%;
+            height:180px;
+            object-fit:contain;
+            background:#0d0f0e;
+            border-radius:20px;
+            padding:1rem;
+            margin-bottom:1rem;
+        }
+        .product-title{
+            font-weight:700;
+            font-size:1.2rem;
+            margin-bottom:0.5rem;
+            flex:1;
+        }
+        .product-price{
+            color:var(--primary);
+            font-weight:800;
+            font-size:1.4rem;
+            margin-bottom:1rem;
+        }
+        .btn{
+            background:linear-gradient(145deg,var(--primary),var(--primary-dark));
+            border:none;
+            color:#fff;
+            padding:1rem;
+            border-radius:16px;
+            font-weight:700;
+            cursor:pointer;
+            transition:0.3s;
+            text-decoration:none;
+            display:inline-block;
+            text-align:center;
+            font-size:1rem;
+        }
+        .btn-outline{
+            background:transparent;
+            border:2px solid var(--primary);
+            color:var(--primary);
+            padding:0.8rem 1.5rem;
+            border-radius:40px;
+            font-weight:600;
+            text-decoration:none;
+        }
+        /* ===== ماشین حساب و انتخاب ===== */
+        .calc-box{
+            background:#121816;
+            border:2px solid var(--primary);
+            border-radius:30px;
+            padding:2rem;
+            height:100%;
+        }
+        .calc-box input,.calc-box select{
+            width:100%;
+            padding:0.8rem;
+            margin:0.5rem 0 1rem;
+            border:2px solid var(--primary);
+            border-radius:16px;
+            background:#0d1410;
+            color:#fff;
+        }
+        .choose-box{
+            background:#121816;
+            border:2px solid var(--primary);
+            border-radius:30px;
+            padding:2rem;
+            height:100%;
+        }
+        .choose-box select{
+            width:100%;
+            padding:0.8rem;
+            margin:0.5rem 0;
+            border:2px solid var(--primary);
+            border-radius:16px;
+            background:#0d1410;
+            color:#fff;
+        }
+        .choose-box ul{
+            list-style:none;
+            margin-top:1rem;
+        }
+        .choose-box li{
+            background:#0d1410;
+            border:1px solid var(--primary);
+            padding:0.8rem;
+            border-radius:16px;
+            margin-bottom:0.5rem;
+        }
+        /* ===== اسلایدر ===== */
+        .slider-container{
+            position:relative;
+            border-radius:40px;
+            overflow:hidden;
+            margin:3rem 0;
+        }
+        .slide{
+            display:none;
+            position:relative;
+        }
+        .slide.active{
+            display:block;
+        }
+        .slide img{
+            width:100%;
+            height:500px;
+            object-fit:cover;
+        }
+        .slide-caption{
+            position:absolute;
+            bottom:50px;
+            right:50px;
+            background:rgba(0,0,0,0.7);
+            backdrop-filter:blur(10px);
+            padding:1.5rem 3rem;
+            border-radius:30px;
+            border-right:6px solid var(--primary);
+        }
+        .slider-btn{
+            position:absolute;
+            top:50%;
+            transform:translateY(-50%);
+            background:rgba(0,200,83,0.9);
+            color:#fff;
+            border:none;
+            width:60px;
+            height:60px;
+            border-radius:50%;
+            font-size:2rem;
+            cursor:pointer;
+            z-index:10;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            transition:0.3s;
+        }
+        .slider-btn:hover{
+            background:var(--primary);
+            transform:translateY(-50%) scale(1.1);
+        }
+        .slider-btn.prev{
+            right:20px;
+        }
+        .slider-btn.next{
+            left:20px;
+        }
+        .progress-bar{
+            position:absolute;
+            bottom:0;
+            left:0;
+            height:6px;
+            background:var(--primary);
+            width:0;
+            transition:width 5s linear;
+        }
+        /* ===== فوتر ===== */
+        .footer{
+            background:#050606;
+            border-top:4px solid var(--primary-dark);
+            padding:4rem 2rem 2rem;
+            margin-top:5rem;
+        }
+        .footer a{
+            color:#b0b0b0;
+            text-decoration:none;
+            transition:0.3s;
+            line-height:2.2;
+        }
+        .footer a:hover{
+            color:var(--primary);
+            padding-right:8px;
+        }
+        .social-btn{
+            border:2px solid var(--primary);
+            border-radius:50%;
+            width:50px;
+            height:50px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:var(--primary);
+            transition:0.3s;
+        }
+        .social-btn:hover{
+            background:var(--primary);
+            color:#fff;
+            transform:translateY(-5px);
+        }
+        /* ===== ریسپانسیو کامل ===== */
+        @media (max-width:992px){
+            .nav-menu{
+                display:none;
+            }
+            .hamburger{
+                display:flex;
+            }
+            .search-box{
+                width:180px;
+            }
+        }
+        @media (max-width:768px){
+            .navbar{
+                padding:0.8rem 1rem;
+            }
+            .navbar-brand{
+                font-size:1.5rem;
+            }
+            .nav-tools{
+                gap:0.5rem;
+            }
+            .search-box{
+                width:140px;
+            }
+            .cart-wrapper{
+                left:10px;
+                width:95%;
+                max-width:360px;
+            }
+            .slide img{
+                height:350px;
+            }
+            .slide-caption{
+                bottom:20px;
+                right:20px;
+                padding:1rem 2rem;
+            }
+            .slider-btn{
+                width:45px;
+                height:45px;
+                font-size:1.5rem;
+            }
+        }
+        @media (max-width:480px){
+            .search-box{
+                display:none;
+            }
+            .hero{
+                min-height:70vh;
+            }
+        }
+        .text-primary{color:var(--primary)!important;}
+        .text-center{text-align:center;}
+        .mt-4{margin-top:2rem;}
+        .mb-4{margin-bottom:2rem;}
+        .d-flex{display:flex;}
+        .gap-2{gap:0.8rem;}
+        .gap-3{gap:1.2rem;}
+        .align-center{align-items:center;}
+        .justify-between{justify-content:space-between;}
+        .flex-wrap{flex-wrap:wrap;}
+    </style>
+</head>
+<body>
+    <!-- ناوبری اصلی -->
+    <nav class="navbar">
+        <a class="navbar-brand" href="index.html"><i class="fa fa-store"></i> ارزان‌کالا</a>
+        
+        <!-- منوی دسکتاپ -->
+        <ul class="nav-menu">
+            <li class="nav-item"><a class="nav-link" href="index.html"><i class="fa fa-home"></i> خانه</a></li>
+            <li class="nav-item"><a class="nav-link" href="category.html"><i class="fa fa-store"></i> محصولات</a></li>
+            <li class="nav-item"><a class="nav-link" href="choose.html"><i class="fa fa-robot"></i> پیشنهاد</a></li>
+            <li class="nav-item"><a class="nav-link" href="compare.html"><i class="fa fa-balance-scale"></i> مقایسه <span class="badge" id="compareCountDesktop">0</span></a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#"><i class="fa fa-bars"></i> دسته‌بندی</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="category.html?category=mobile"><i class="fa fa-mobile-alt" style="color:#00c853;"></i> موبایل</a>
+                    <a class="dropdown-item" href="category.html?category=laptop"><i class="fa fa-laptop" style="color:#00c853;"></i> لپ تاپ</a>
+                    <a class="dropdown-item" href="category.html?category=accessory"><i class="fa fa-headphones" style="color:#00c853;"></i> لوازم جانبی</a>
+                </div>
+            </li>
+        </ul>
+
+        <!-- ابزارها -->
+        <div class="nav-tools">
+            <div class="search-box">
+                <form onsubmit="event.preventDefault();window.location='category.html?search='+encodeURIComponent(this.querySelector('input').value)">
+                    <input type="text" placeholder="جستجو...">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <button class="cart-btn" id="cartToggleBtn">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="badge" id="cartTotal">0</span>
+            </button>
+            <a href="register.html" class="login-btn"><i class="fa fa-user"></i></a>
+            <button class="hamburger" id="hamburgerBtn"><i class="fa fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- منوی موبایل -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a class="nav-link" href="index.html"><i class="fa fa-home"></i> خانه</a>
+        <a class="nav-link" href="category.html"><i class="fa fa-store"></i> محصولات</a>
+        <a class="nav-link" href="choose.html"><i class="fa fa-robot"></i> پیشنهاد</a>
+        <a class="nav-link" href="compare.html"><i class="fa fa-balance-scale"></i> مقایسه <span class="badge" id="compareCountMobile">0</span></a>
+        <div class="dropdown">
+            <a class="nav-link" href="#"><i class="fa fa-bars"></i> دسته‌بندی</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="category.html?category=mobile"><i class="fa fa-mobile-alt"></i> موبایل</a>
+                <a class="dropdown-item" href="category.html?category=laptop"><i class="fa fa-laptop"></i> لپ تاپ</a>
+                <a class="dropdown-item" href="category.html?category=accessory"><i class="fa fa-headphones"></i> لوازم جانبی</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- سبد خرید کشویی -->
+    <div class="cart-wrapper" id="cartMenu">
+        <div class="cart">
+            <div class="cart-header"><h3><i class="fa fa-shopping-cart"></i> سبد خرید</h3></div>
+            <div class="cart-body" id="cartItems"></div>
+            <div style="padding:1.2rem;padding-top:0;">
+                <div class="cart-summary">
+                    <div class="d-flex justify-between align-center">
+                        <span style="font-size:1.2rem;">مجموع:</span>
+                        <span class="total-price" id="cartTotalPrice">0</span>
+                        <span>تومان</span>
+                    </div>
+                    <div class="cart-actions">
+                        <button class="btn-clear" id="clearCartBtn"><i class="fa fa-trash"></i> حذف همه</button>
+                        <a href="buy.html" class="btn-pay" id="payBtn"><i class="fa fa-credit-card"></i> پرداخت</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- محتوای اصلی -->
+    <div class="main-content">
+        <div class="hero">
+            <div>
+                <h1>فروشگاه <span class="highlight">ارزان کالا</span></h1>
+                <p style="font-size:1.8rem;margin:1rem 0;">امن‌ترین فروشگاه آنلاین کالا</p>
+                <h2 style="color:var(--primary);font-size:2rem;">🔥 خرید سریع و ارزان 🔥</h2>
+                <p style="margin-top:2rem;font-size:1.2rem;">از لوازم الکترونیکی تا لوازم خانگی – فقط یه کلیک فاصله داری!</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="text-center" style="margin-bottom:3rem;font-size:2.5rem;">۷ محصول ویژه</h2>
+                <div class="row" id="specialProducts"></div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="calc-box">
+                        <h3 style="margin-bottom:1.5rem;">ماشین حساب مجازی</h3>
+                        <form id="calcForm">
+                            <label>عدد اول</label>
+                            <input type="number" id="num1" value="10">
+                            <label>عدد دوم</label>
+                            <input type="number" id="num2" value="5">
+                            <label>عملیات</label>
+                            <select id="operator">
+                                <option value="+">جمع (+)</option>
+                                <option value="-">تفریق (-)</option>
+                                <option value="*">ضرب (×)</option>
+                                <option value="/">تقسیم (÷)</option>
+                                <option value="square">مجذور عدد اول</option>
+                                <option value="even">زوج یا فرد بودن عدد اول</option>
+                            </select>
+                            <label>نتیجه</label>
+                            <input type="text" id="calcResult" readonly>
+                            <button type="button" class="btn" id="calcBtn" style="width:100%;">محاسبه</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="choose-box">
+                        <h3 style="margin-bottom:1.5rem;">دسته‌بندی منتخب</h3>
+                        <select id="categorySelect">
+                            <option value="موبایل">موبایل</option>
+                            <option value="لپ تاپ">لپ تاپ</option>
+                            <option value="لوازم جانبی">لوازم جانبی</option>
+                        </select>
+                        <button class="btn" id="addCategoryBtn" style="width:100%;margin:1rem 0;">اضافه کن</button>
+                        <ul id="categoryList"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- اسلایدر -->
+        <div class="container">
+            <div class="slider-container" id="slider">
+                <div id="sliderWrapper"></div>
+                <button class="slider-btn prev" id="prevSlide">&#10094;</button>
+                <button class="slider-btn next" id="nextSlide">&#10095;</button>
+                <div class="progress-bar" id="sliderProgress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h4 style="color:var(--primary);margin-bottom:1.5rem;">ارزان کالا</h4>
+                    <p>فروشگاه آنلاین با 10 سال سابقه درخشان. اصالت کالا تضمینی، ارسال اکسپرس به سراسر ایران.</p>
+                </div>
+                <div class="col">
+                    <h4 style="color:var(--primary);margin-bottom:1.5rem;">لینک‌های مفید</h4>
+                    <a href="#">درباره ما</a><br>
+                    <a href="#">تماس با ما</a><br>
+                    <a href="#">قوانین</a>
+                </div>
+                <div class="col">
+                    <h4 style="color:var(--primary);margin-bottom:1.5rem;">دسته‌بندی‌ها</h4>
+                    <a href="category.html?category=mobile">موبایل</a><br>
+                    <a href="category.html?category=laptop">لپ تاپ</a><br>
+                    <a href="category.html?category=accessory">لوازم جانبی</a>
+                </div>
+                <div class="col">
+                    <h4 style="color:var(--primary);margin-bottom:1.5rem;">ارتباط با ما</h4>
+                    <p><i class="fa fa-map-marker"></i> تهران، ولیعصر</p>
+                    <p><i class="fa fa-phone"></i> ۰۲۱-۱۲۳۴۵۶۷۸</p>
+                </div>
+            </div>
+            <hr style="border-color:#2a2f2e;margin:2rem 0;">
+            <div class="d-flex justify-between align-center flex-wrap" style="gap:1rem;">
+                <div class="d-flex gap-2">
+                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <p>کلیه حقوق برای فروشگاه ارزان کالا محفوظ است - ۱۴۰۴</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        (function(){
+            // ================== دیتابیس محصولات ==================
+            const products = [
+                {id:1,name:"Galaxy A54",price:12500000,image:"a54.jpg",category:"mobile"},
+                {id:2,name:"iPhone 13",price:35000000,image:"iphone13.jpg",category:"mobile"},
+                {id:3,name:"Galaxy Tab S9",price:22000000,image:"tabS9.jpg",category:"tablet"},
+                {id:4,name:"VivoBook 15",price:23000000,image:"vivobook15.jpg",category:"laptop"},
+                {id:5,name:"MacBook Air M2",price:55000000,image:"macbookAirM2.jpg",category:"laptop"},
+                {id:6,name:"JBL Tune 760NC",price:4200000,image:"jbl760nc.jpg",category:"accessory"},
+                {id:7,name:"Canon EOS 250D",price:17000000,image:"canon250d.jpg",category:"camera"}
+            ];
+
+            // ================== سبد خرید و مقایسه ==================
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let compareList = JSON.parse(localStorage.getItem('compareList')) || [];
+
+            function updateAllBadges(){
+                const cartCount = cart.reduce((sum,i)=>sum+(i.qty||1),0);
+                document.querySelectorAll('#cartTotal, #cartTotalMobile').forEach(el=>{if(el) el.textContent=cartCount;});
+                const compareCount = compareList.length;
+                document.querySelectorAll('#compareCountDesktop, #compareCountMobile').forEach(el=>{if(el) el.textContent=compareCount;});
+                
+                const totalPrice = cart.reduce((sum,i)=>sum+(i.price*(i.qty||1)),0);
+                const priceEl = document.getElementById('cartTotalPrice');
+                if(priceEl) priceEl.textContent = totalPrice.toLocaleString();
+
+                // نمایش آیتم‌های سبد خرید
+                const cartDiv = document.getElementById('cartItems');
+                if(cartDiv){
+                    if(cart.length===0){
+                        cartDiv.innerHTML = '<div class="text-center" style="padding:2rem;">سبد خرید خالی است</div>';
+                    }else{
+                        let html = '';
+                        cart.forEach(item=>{
+                            html += `<div class="cart-item">
+                                <img src="img/${item.image}" onerror="this.src='https://via.placeholder.com/60'">
+                                <div class="cart-item-info">
+                                    <div class="cart-item-name">${item.name}</div>
+                                    <div class="cart-item-price">${item.price.toLocaleString()} تومان</div>
+                                    <div class="cart-qty">
+                                        <button class="qty-btn" onclick="window.changeQty(${item.id}, -1)">-</button>
+                                        <span>${item.qty||1}</span>
+                                        <button class="qty-btn" onclick="window.changeQty(${item.id}, 1)">+</button>
+                                        <button class="remove-btn" onclick="window.removeFromCart(${item.id})"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>`;
+                        });
+                        cartDiv.innerHTML = html;
+                    }
+                }
+            }
+
+            window.addToCart = (product)=>{
+                const exist = cart.find(i=>i.id===product.id);
+                if(exist) exist.qty = (exist.qty||1)+1;
+                else cart.push({...product, qty:1});
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateAllBadges();
+                alert('✅ محصول به سبد خرید اضافه شد');
+            };
+
+            window.changeQty = (id, delta)=>{
+                const idx = cart.findIndex(i=>i.id===id);
+                if(idx===-1) return;
+                if(delta===-1 && cart[idx].qty>1) cart[idx].qty--;
+                else if(delta===-1) cart.splice(idx,1);
+                else if(delta===1) cart[idx].qty = (cart[idx].qty||1)+1;
+                localStorage.setItem('cart',JSON.stringify(cart));
+                updateAllBadges();
+            };
+
+            window.removeFromCart = (id)=>{
+                cart = cart.filter(i=>i.id!==id);
+                localStorage.setItem('cart',JSON.stringify(cart));
+                updateAllBadges();
+            };
+
+            document.getElementById('clearCartBtn')?.addEventListener('click',()=>{
+                if(confirm('همه آیتم‌ها حذف شوند؟')){
+                    cart = [];
+                    localStorage.setItem('cart',JSON.stringify(cart));
+                    updateAllBadges();
+                }
+            });
+
+            document.getElementById('payBtn')?.addEventListener('click',(e)=>{
+                if(cart.length===0){
+                    e.preventDefault();
+                    alert('سبد خرید خالی است');
+                }
+            });
+
+            // ================== منوی همبرگر ==================
+            const hamburger = document.getElementById('hamburgerBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            if(hamburger && mobileMenu){
+                hamburger.addEventListener('click',()=>{
+                    mobileMenu.classList.toggle('active');
+                });
+            }
+
+            // ================== سبد خرید کشویی ==================
+            const cartBtn = document.getElementById('cartToggleBtn');
+            const cartMenu = document.getElementById('cartMenu');
+            if(cartBtn && cartMenu){
+                cartBtn.addEventListener('click',(e)=>{
+                    e.stopPropagation();
+                    cartMenu.classList.toggle('active');
+                    mobileMenu.classList.remove('active'); // بستن منوی موبایل
+                });
+                document.addEventListener('click',(e)=>{
+                    if(!cartMenu.contains(e.target) && !cartBtn.contains(e.target)){
+                        cartMenu.classList.remove('active');
+                    }
+                });
+            }
+
+            // ================== محصولات ویژه ==================
+            const specialContainer = document.getElementById('specialProducts');
+            if(specialContainer){
+                let html = '';
+                products.slice(0,7).forEach(p=>{
+                    html += `<div class="col">
+                        <div class="product-card">
+                            <img src="img/${p.image}" class="product-img" onerror="this.src='https://via.placeholder.com/200'">
+                            <div class="product-title">${p.name}</div>
+                            <div class="product-price">${p.price.toLocaleString()} تومان</div>
+                            <a href="product.html?id=${p.id}" class="btn">مشاهده</a>
+                        </div>
+                    </div>`;
+                });
+                specialContainer.innerHTML = html;
+            }
+
+            // ================== ماشین حساب ==================
+            document.getElementById('calcBtn')?.addEventListener('click',()=>{
+                const n1 = parseFloat(document.getElementById('num1').value) || 0;
+                const n2 = parseFloat(document.getElementById('num2').value) || 0;
+                const op = document.getElementById('operator').value;
+                let res;
+                if(op==='+') res = n1 + n2;
+                else if(op==='-') res = n1 - n2;
+                else if(op==='*') res = n1 * n2;
+                else if(op==='/') res = n2!==0 ? n1/n2 : 'خطا (تقسیم بر صفر)';
+                else if(op==='square') res = n1 * n1;
+                else if(op==='even') res = (n1%2===0) ? 'زوج' : 'فرد';
+                document.getElementById('calcResult').value = res;
+            });
+
+            // ================== دسته‌بندی انتخابی ==================
+            document.getElementById('addCategoryBtn')?.addEventListener('click',()=>{
+                const select = document.getElementById('categorySelect');
+                const text = select.options[select.selectedIndex].text;
+                const li = document.createElement('li');
+                li.textContent = text;
+                document.getElementById('categoryList').appendChild(li);
+            });
+
+            // ================== اسلایدر ==================
+            const slides = [
+                {img:'arzankala.png', title:'فروشگاه ارزان کالا', desc:'معتبرترین فروشگاه آنلاین'},
+                {img:'ideapadGaming3.jpg', title:'محصولات دیجیتال', desc:'گوشی، لپ‌تاپ، لوازم جانبی'},
+                {img:'lgWashing9.jpg', title:'لوازم خانگی', desc:'کیفیت و تنوع بالا'}
+            ];
+            let currentSlide = 0;
+            const sliderWrapper = document.getElementById('sliderWrapper');
+            const progress = document.getElementById('sliderProgress');
+            let slideTimer;
+
+            function renderSlide(){
+                let html = '';
+                slides.forEach((s,idx)=>{
+                    html += `<div class="slide ${idx===currentSlide?'active':''}">
+                        <img src="img/${s.img}" onerror="this.src='https://via.placeholder.com/1200x500'">
+                        <div class="slide-caption">
+                            <h2 style="font-size:2rem;">${s.title}</h2>
+                            <p style="font-size:1.2rem;">${s.desc}</p>
+                        </div>
+                    </div>`;
+                });
+                sliderWrapper.innerHTML = html;
+                resetProgress();
+            }
+
+            function resetProgress(){
+                if(slideTimer) clearTimeout(slideTimer);
+                progress.style.transition = 'none';
+                progress.style.width = '0%';
+                setTimeout(()=>{
+                    progress.style.transition = 'width 5s linear';
+                    progress.style.width = '100%';
+                },50);
+                slideTimer = setTimeout(()=>{
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    renderSlide();
+                },5000);
+            }
+
+            document.getElementById('prevSlide')?.addEventListener('click',()=>{
+                if(slideTimer) clearTimeout(slideTimer);
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                renderSlide();
+            });
+
+            document.getElementById('nextSlide')?.addEventListener('click',()=>{
+                if(slideTimer) clearTimeout(slideTimer);
+                currentSlide = (currentSlide + 1) % slides.length;
+                renderSlide();
+            });
+
+            renderSlide();
+
+            // ================== مقداردهی اولیه ==================
+            updateAllBadges();
+
+            // همگام‌سازی با سایر تب‌ها
+            window.addEventListener('storage',()=>{
+                cart = JSON.parse(localStorage.getItem('cart')) || [];
+                compareList = JSON.parse(localStorage.getItem('compareList')) || [];
+                updateAllBadges();
+            });
+        })();
+    </script>
+</body>
+</html>
